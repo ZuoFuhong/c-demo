@@ -123,6 +123,12 @@ void learn_enum() {
     printf("day = %d", day);
 }
 
+void learn_const() {
+    int a;  // 未经显示初始化的自动变量的值为未定义值（即无效值）
+    const int c = 10;
+    const char s[] = "hello";   // const限定符指定数组所有元素的值都不能被修改
+}
+
 void learn_pointer() {
     int i = 47;
     int *a = &i;

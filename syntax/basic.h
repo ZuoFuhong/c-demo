@@ -12,6 +12,7 @@ void learn_char_array();
 void learn_pointer();
 void learn_struct();
 void learn_enum();
+void learn_const();
 void learn_union();
 void learn_file();
 

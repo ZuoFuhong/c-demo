@@ -5,6 +5,6 @@
 #include "syntax/basic.h"
 
 int main() {
-    learn_enum();
+    learn_const();
     return 0;
 }
