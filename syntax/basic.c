@@ -129,6 +129,14 @@ void learn_const() {
     const char s[] = "hello";   // const限定符指定数组所有元素的值都不能被修改
 }
 
+void learn_bool() {
+    // 根据定义，在关系表达式或逻辑表达中，如果关系为真，则表达式的结果值为数值1；如果为假，则结果值为数值0。
+    // 逻辑非运算符 ! 的作用是将非0操作数转换为0，将操作数0转换为1。
+    char a = 0;
+    char b = '\0';
+    printf("%d", a != b);
+}
+
 void learn_pointer() {
     int i = 47;
     int *a = &i;

@@ -5,6 +5,6 @@
 #include "syntax/basic.h"
 
 int main() {
-    learn_const();
+    learn_bool();
     return 0;
 }
