@@ -132,9 +132,10 @@ void learn_const() {
 void learn_bool() {
     // 根据定义，在关系表达式或逻辑表达中，如果关系为真，则表达式的结果值为数值1；如果为假，则结果值为数值0。
     // 逻辑非运算符 ! 的作用是将非0操作数转换为0，将操作数0转换为1。
-    char a = 0;
-    char b = '\0';
-    printf("%d", a != b);
+    char a = 0;     // 十进制数
+    char b = '\0';  // 转义字符
+    char c = '0';   // 字符
+    printf("%d", a == b);
 }
 
 void learn_pointer() {
