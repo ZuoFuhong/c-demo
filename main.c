@@ -5,6 +5,6 @@
 #include "syntax/basic.h"
 
 int main() {
-    learn_printf();
+    learn_enum();
     return 0;
 }

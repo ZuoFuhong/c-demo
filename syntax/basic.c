@@ -2,6 +2,7 @@
 // Created by dazuo on 2020/6/11.
 //
 #include <stdio.h>
+#include <string.h>
 #include "basic.h"
 
 #define CODE "10001"
@@ -29,12 +30,28 @@ void learn_printf() {
 }
 
 void learn_data_type() {
-    char ch = 'a';
-    int num = 10;
-    double money = 2.3;
-    printf("%.2f", money / 3);
+    char a = 'a';
+    char a2 = 127;  // -128 - 127
+    unsigned char a3 = 128; // 0 ~ 255
+    printf("a = %d\n", a);
+    printf("a size = %ld\n", sizeof(a3));
+
+    int b = 10;
+    short int c = 20;
+    long int d = 10L;
+    unsigned long d2 = 100UL;   // UL 表示是 unsigned long类型（注意：这只是语义上表示）
+    printf("d = %ld\n", d);
+    printf("d2 = %ld\n", d2);
+
+    float e = 2.2f;
+    double g = 2.3;
+    printf("%.2f", g / 3);
     printf("\n");
-    printf("%x", 0x12);
+    printf("%x\n", 0x12);
+
+    char str[] = "hello中国";
+    printf("len = %ld\n", strlen(str)); // 返回字符串参数str的长度，长度不包含末尾的 \0
+    printf("len2 = %ld", sizeof(str));  // 返回在内存中占用的字节数，长度包含末尾的 \0
 }
 
 void learn_flow_statement() {
@@ -94,11 +111,16 @@ void learn_union() {
 }
 
 void learn_enum() {
+    // 枚举是一个常量整型值的列表。
+    // 在没有显示说明的情况下，enum类型中第一个枚举名的值为0，第二个为1，以此类推。如果只指定了部分枚举名的值，
+    // 那么未指定值的枚举名的值将依着最后一个指定值向后递增。
+    // 不同枚举的名字必须互不相同，同一枚举中不同的名字可以具有相同的值。
     enum Week {
-        Mon = 1, Thes = 2, Wed = 3
-    } day = Mon;
-
-    printf("%d, sizeof = %ld", day, sizeof(day));
+        Mon = 1, Thes = 3, Wed
+    };
+    enum Week day = Mon;
+    printf("%d, sizeof = %ld\n", Wed, sizeof(Wed));
+    printf("day = %d", day);
 }
 
 void learn_pointer() {
