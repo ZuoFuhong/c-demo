@@ -141,6 +141,16 @@ void learn_bool() {
     printf("%d", a == b);
 }
 
+void learn_goto() {
+    int a = 10;
+    if (a > 9) {
+        goto tag;
+    }
+    printf("123");
+    tag:
+        printf("occur error");
+}
+
 // 内置stdlib.h#strtol()
 int atoi(const char s[]) {
     int i, n;
