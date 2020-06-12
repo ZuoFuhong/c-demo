@@ -8,11 +8,24 @@
 #define CODE "10001"
 #define STEP 20
 
+// 外部的static声明多用于变量，当然，它可用于声明函数。通常情况下，函数名字是全局可以访问的，对整个程序的
+// 各个部分而言都是可见。但是，如果把函数声明未static类型，则该函数名出了对函数声明所在的文件可见外，其它
+// 文件都无法访问。
+//
+// static也可用于声明内部变量。不管其所在函数是否被调用，它一直存在，而不像自动变量那样，随着所在函数的调
+// 用和退出而存在和消失。static类型的变量会一直占据存储空间。
+static int PRI_KEY = 888;
+static void learn_static() {
+    printf("%d", PRI_KEY);
+}
+
 extern int FILE_FD;
+extern void learn_stdlib();
 // 在一个源程序的所有源文件中，一个外部变量只能在某个文件中定义一次，而其他文件可以通过extern声明来访问它。
 // 外部变量的定义中必须指定数组的长度，但extern声明则不一定要指定数组的长度。
 // 外部变量的初始化只能出现在其定义中。
 void learn_extern() {
+    learn_stdlib();
     printf("FILE_FD: %d", FILE_FD);
 }
 
