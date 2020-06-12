@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int FILE_FD = 999;
+
 void learn_stdlib() {
     double a = strtod("123", NULL);
     long b = strtol("123", NULL, 10);

@@ -8,25 +8,39 @@
 #define CODE "10001"
 #define STEP 20
 
+extern int FILE_FD;
+// 在一个源程序的所有源文件中，一个外部变量只能在某个文件中定义一次，而其他文件可以通过extern声明来访问它。
+// 外部变量的定义中必须指定数组的长度，但extern声明则不一定要指定数组的长度。
+// 外部变量的初始化只能出现在其定义中。
+void learn_extern() {
+    printf("FILE_FD: %d", FILE_FD);
+}
+
 void learn_printf() {
     int a = 10;
+    long l = 11L;
     char b = 'A';
     float  c = 0.2f;
     double d = 0.4;
     int e = 0123;       // 八进制：以0为前缀,其后由0至7的数字组成
     int f = 0x12;       // 16进制：以0x为前缀，其后有0-9A-F组成
+    double g = 0.4;
     char s[] = "hello";
+    int *p = &f;
 
-    printf("%d\n", a);  // 按十进制整型数据的实际长度输出
-    printf("%ld\n", sizeof(a));  // 输出长整型数据
-    printf("%5d\n", a); // 指定的输出字段的宽度，左边补空格
-    printf("%u\n", a);  // 输出无符号整型
-    printf("%c\n", b);  // 用来输出一个字符
-    printf("%f\n", c);  // 用来输出实数，包括单精度和双精度
-    printf("%.2f\n", d);// 指定小数位，超出的进行四舍五入
-    printf("%o", e);    // 以八进制整数形式输出
-    printf("%x", f);    // 以十六进制整数形式输出
-    printf("%s", s);    // 用来输出字符串
+    printf("%d\n", a);      // 按十进制整型数据的实际长度输出
+    printf("%ld\n", l);     // 输出长整型数据
+    printf("%5d\n", a);     // 指定的输出字段的宽度，左边补空格
+    printf("%u\n", a);      // 输出无符号整型
+    printf("%c\n", b);      // 用来输出一个字符
+    printf("%f\n", c);      // 用来输出实数，包括单精度和双精度
+    printf("%.2f\n", d);    // 指定小数位，超出的进行四舍五入
+    printf("%o\n", e);      // 以八进制整数形式输出
+    printf("%x\n", f);      // 以十六进制整数形式输出
+    printf("%s\n", s);      // 用来输出字符串
+    printf("%g\n", g);      // 以最短的形式表示
+    printf("%d\n", *p);
+    printf("%p\n", p);      // 指针的地址
 }
 
 void learn_data_type() {
@@ -63,15 +77,6 @@ void learn_flow_statement() {
 void learn_define() {
     printf("%s", CODE);
     printf("%d", STEP);
-}
-
-void learn_stream_input() {
-    int c;
-    // read a character
-    while ((c = getchar()) != EOF) {
-        // output a character
-        putchar(c);
-    }
 }
 
 void learn_array() {
