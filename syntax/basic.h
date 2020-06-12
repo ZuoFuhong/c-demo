@@ -14,6 +14,7 @@ void learn_struct();
 void learn_enum();
 void learn_const();
 void learn_bool();
+int atoi(const char s[]);
 void learn_union();
 void learn_file();
 

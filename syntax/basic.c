@@ -138,6 +138,16 @@ void learn_bool() {
     printf("%d", a == b);
 }
 
+// 内置stdlib.h#strtol()
+int atoi(const char s[]) {
+    int i, n;
+    n = 0;
+    for (i = 0; s[i] >= '0' && s[i] <= '9';i++){
+        n = n * 10 + (s[i] - '0');
+    }
+    return n;
+}
+
 void learn_pointer() {
     int i = 47;
     int *a = &i;
