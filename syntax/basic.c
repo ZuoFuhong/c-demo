@@ -1,12 +1,29 @@
 //
 // Created by dazuo on 2020/6/11.
 //
-#include <stdio.h>
+#include <stdio.h>      // 预处理器是编译过程中执行的第一个步骤。#include指令（用于在编译期间把指定文件的内容包含进当前文件中）
 #include <string.h>
-#include "basic.h"
+#include "basic.h"      // 文件名用引号引起来，则在源文件所在位置查找该文件；如果在该位置没有找到文件，则根据相应的规格查找该文件，这个规则同具体的实现有关。
+#include <ctype.h>
 
-#define CODE "10001"
-#define STEP 20
+#define CODE "10001"    // #define指令，宏替换，用任意字符序列替代一个标记
+#define STEP 30
+#define max(A, B)  ((A) > (B) ? (A) : (B))
+
+int key;
+#if STEP == 20
+    int key = 20;
+#elif STEP == 30
+    int key = 30;
+#endif
+
+void learn_define() {
+    printf("%s\n", CODE);
+    printf("%d\n", STEP);
+    int x = max(8, 5);
+    printf("%d\n", x);
+    printf("key = %d\n", key);
+}
 
 // 外部的static声明多用于变量，当然，它可用于声明函数。通常情况下，函数名字是全局可以访问的，对整个程序的
 // 各个部分而言都是可见。但是，如果把函数声明未static类型，则该函数名出了对函数声明所在的文件可见外，其它
@@ -85,11 +102,6 @@ void learn_flow_statement() {
     for (int i = 0; i < 5; i++) {
         printf("i = %d\t", i);
     }
-}
-
-void learn_define() {
-    printf("%s", CODE);
-    printf("%d", STEP);
 }
 
 void learn_array() {
