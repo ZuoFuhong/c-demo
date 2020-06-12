@@ -10,3 +10,12 @@ void learn_stdlib() {
     printf("%.2f\n", a);
     printf("%ld", b);
 }
+
+void learn_stream_input() {
+    int c;
+    // read a character
+    while ((c = getchar()) != EOF) {
+        // output a character
+        putchar(c);
+    }
+}

@@ -3,3 +3,4 @@
 //
 
 void learn_stdlib();
+void learn_stream_input();
