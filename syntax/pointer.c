@@ -59,6 +59,7 @@ void learn_character_pointer() {
     // printf("p = %p, c = %c", pmessage, *pmessage);
 }
 
+// 数组指针
 void learn_array_pointer() {
     int arr[] = {1, 2, 3};
     printf("%p\n", arr);            // 数组名和指针有一个不同之处：指针是变量，但数组名不是变量，因此类似于arr++形式是非法的。
@@ -107,4 +108,20 @@ void learn_pointer_operation() {
     // 其它所有形式的指针运算都是非法的。
     printf("%p\n", allocp);
     printf("%p\n", allocp + 1);
+}
+
+// 指针数组
+// 指针本身也是变量，可以像其他变量一样存储在数组中
+char *lineptr[10];
+// 表示lineptr是一个具有10个元素的一维数组，其中数组的每个元素是一个指向字符类型对象的指针。
+// 也就是说，lineptr[i]是一个字符指针，而*lineptr[i]是改指针指向的第i个文本行的首字符。
+void learn_pointer_array() {
+    *lineptr = "one";   // 首元素
+    printf("p = %p, s = %s\n", lineptr, *lineptr);
+
+    lineptr[0] = "two"; // 首元素
+    printf("p = %p, s = %s\n", lineptr[0], lineptr[0]);
+
+    // lineptr首元素的首字符
+    printf("c = %c\n", *lineptr[0]);
 }
