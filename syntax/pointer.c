@@ -125,3 +125,37 @@ void learn_pointer_array() {
     // lineptr首元素的首字符
     printf("c = %c\n", *lineptr[0]);
 }
+
+// 多维数组
+void invoke_array(int arr[2][2]);
+void invoke2_array(int arr[][2]);
+void invoke3_array(int (*arr)[2]);
+// 以上 三种表示方式等效，这种形式表示参数是一个指针，它指向具有2个整型元素的一维数组。
+// 因为方括号[]优先级高于 * 的优先级，所以上述声明中必须使用圆括号。
+
+// 去掉圆括号后，相当于声明了一个数组，该数组有2个元素，其中每一个元素都是一个指向整型
+// 对象的指针。一般来说，除数组的第一维（下标）可以不指定大小外，其余各位都必须指定大小。
+void invoke4_array(int *arr[2]);
+
+void learn_multi_array() {
+    int arr[][2] = {{1, 2}, {3, 4}};
+    printf("%d\n", arr[0][0]);
+    invoke_array(arr);
+    invoke2_array(arr);
+    invoke3_array(arr);
+}
+
+void invoke_array(int arr[2][2]) {
+    printf("p = %p, d = %d\n", arr[0], *arr[0]);
+    printf("p = %p, d = %d\n", arr[0] + 1, *(arr[0] + 1));
+}
+
+void invoke2_array(int arr[][2]) {
+    printf("p = %p, d = %d\n", arr[0], *arr[0]);
+    printf("p = %p, d = %d\n", arr[0] + 1, *(arr[0] + 1));
+}
+
+void invoke3_array(int (*arr)[2]) {
+    printf("p = %p, d = %d\n", arr[0], *arr[0]);
+    printf("p = %p, d = %d\n", arr[0] + 1, *(arr[0] + 1));
+}
