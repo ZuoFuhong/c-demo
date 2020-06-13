@@ -38,6 +38,27 @@ void swap(int *px, int *py) {
     *py = temp;
 }
 
+// 字符数组和指针
+void learn_character_pointer() {
+    // 下面两个定义有很大区别：
+    char amessage[] = "now is the time";     // 定义一个数组
+    char *pmessage  = "now is the time";     // 定义一个指针
+    // 上述声明中，amessage是一个仅仅足以存放初始化字符串以及空字符'\0'的一维数组。数组中的单个字符可以进行修改，
+    // 但amessage始终指向同一个存储位置。另一方面，pmessage是一个指针，其初值指向一个字符串常量，之后它可以被修
+    // 改以指向其他地址。但是如果试图修改字符串的内容，结果是没有定义的。
+
+    printf("p = %p, c = %c\n", pmessage, *pmessage);
+    printf("p = %p, c = %c\n", pmessage + 1, *pmessage + 1);
+
+    // 修改指针指向
+    pmessage = "hello";
+    printf("s = %s\n", pmessage);
+
+    // 修改字符串的内容，导致后续代码无法执行
+    // *pmessage = 'k';
+    // printf("p = %p, c = %c", pmessage, *pmessage);
+}
+
 void learn_array_pointer() {
     int arr[] = {1, 2, 3};
     printf("%p\n", arr);            // 数组名和指针有一个不同之处：指针是变量，但数组名不是变量，因此类似于arr++形式是非法的。
