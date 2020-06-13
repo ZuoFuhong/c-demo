@@ -65,3 +65,25 @@ long strlength(char *s) {
     }
     return n;
 }
+
+#define ALLOCSIZE 1000
+static char allocbuf[ALLOCSIZE];
+static char *allocp = allocbuf;
+
+// 指针的运算
+void learn_pointer_operation() {
+    printf("%ld\n", allocbuf + ALLOCSIZE - allocp);
+
+    // 指针可以和整数进行相加或相减运算
+    // 在计算p + n时，n将根据p指向的对象的长度按比例缩放，而p指向的对象的长度则取决于p的声明。
+    // 例如，int类型占4个字节的存储空间，对应的n将按4的倍数来计算。
+    //
+    // 有效的指针运算包括：
+    // - 1.相同类型指针之间的赋值运算;
+    // - 2.指针同整数之间的加法或减法运算；
+    // - 3.指向相同数组中元素的两个指针间的减法或比较运算；
+    // - 4.将指针赋值为0或指针与0之间的比较运算。
+    // 其它所有形式的指针运算都是非法的。
+    printf("%p\n", allocp);
+    printf("%p\n", allocp + 1);
+}
