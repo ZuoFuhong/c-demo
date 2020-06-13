@@ -4,5 +4,9 @@ project(c_demo C)
 set(CMAKE_C_STANDARD 99)
 
 add_executable(c_demo
-        main.c syntax/basic.h syntax/basic.c syntax/learn_builtin.c syntax/learn_builtin.h
-        example/calc/calc.h example/calc/calc.c example/calc/getop.c example/calc/stack.c)
+    main.c
+    syntax/basic.h syntax/basic.c
+    syntax/builtin.c
+    syntax/pointer.c
+    example/calc/calc.h example/calc/calc.c example/calc/getop.c example/calc/stack.c
+)

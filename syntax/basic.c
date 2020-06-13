@@ -191,28 +191,6 @@ int atoi(const char s[]) {
     return n;
 }
 
-void learn_pointer() {
-    int i = 47;
-    int *a = &i;
-    int b = 20;
-    a = &b;
-    *a = 21;
-    int c = *a;
-    a += 2;
-    // array pointer
-    int arr[] = {1, 2, 3};
-    printf("%p\n", arr);
-    printf("%p\n", arr + 1);
-    printf("%p\n", &arr[0]);
-    printf("%p\n", &arr[0] + 1);
-    // array first address offset sizeof(int) unit
-    printf("%d\n", *(arr + 1));
-
-    printf("%p\n", &arr);
-    // array first address offset sizeof(arr) unit
-    printf("%p\n", &arr + 1);
-}
-
 void learn_struct() {
     struct stru {
         char *name;
