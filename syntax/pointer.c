@@ -2,6 +2,7 @@
 // Created by dazuo on 2020/6/12.
 //
 #include <stdio.h>
+#include <stdlib.h>
 
 /* 概念：指针是一种保存变量地址的变量 */
 
@@ -158,4 +159,36 @@ void invoke2_array(int arr[][2]) {
 void invoke3_array(int (*arr)[2]) {
     printf("p = %p, d = %d\n", arr[0], *arr[0]);
     printf("p = %p, d = %d\n", arr[0] + 1, *(arr[0] + 1));
+}
+
+// 指向函数的指针
+// 在C语言中，函数本身不是变量，但可以定义指向函数的指针。这种类型的指针可以被赋值、存放
+// 在数组中、传递给函数以及函数的返回值等等。
+
+// 指针数组参数的类型为通用指针类型 void *。由于任何类型的指针都可以转换为 void *类型，
+// 并且在将它转换回原来的类型不会丢失信息。
+int numcmp(char *s1, char *s2);
+void invoke_func(char *left, char *right, int (*comp)(char *, char *));
+
+void learn_func_pointer() {
+    invoke_func("12", "13", numcmp);
+}
+
+void invoke_func(char *left, char *right, int (*comp)(char *, char *)) {
+    int res = (*comp)(left, right);
+    printf("%d", res);
+}
+
+// 按数值顺序比较字符串 s1 和 s2
+int numcmp(char *s1, char *s2) {
+    double v1, v2;
+    v1 = strtod(s1, NULL);
+    v2 = strtod(s2, NULL);
+    if (v1 < v2) {
+        return -1;
+    } else if (v1 > v2) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
