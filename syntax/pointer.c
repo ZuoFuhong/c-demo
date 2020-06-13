@@ -192,3 +192,22 @@ int numcmp(char *s1, char *s2) {
         return 0;
     }
 }
+
+// 复杂声明
+int *f();       // f：是一个函数，它返回一个指向int类型的指针
+int (*pf)();    // pf：是一个指向函数的指针，该函数返回一个int类型的对象
+
+int a = 10;
+int *f() {
+    return &a;
+}
+
+int e() {
+    printf("hello");
+    return 0;
+}
+
+void learn_func_statement() {
+    pf = e;
+    pf();
+}
