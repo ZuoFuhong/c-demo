@@ -25,6 +25,20 @@ void learn_define() {
     printf("key = %d\n", key);
 }
 
+typedef int length;
+typedef char *String;
+
+// typedef声明并没有创建一个新类型，它只是为某个已存在的类型增加一个新的名称而已。
+// typedef声明也没有增加任何新的语义：通过这种方式声明的变量与通过普通声明方式声明
+// 的变量具有完全相同的属性。
+void learn_typedef() {
+    length age = 20;
+    printf("%d\n", age);
+
+    String name = "Lucy";
+    printf("%s\n", name);
+}
+
 // 外部的static声明多用于变量，当然，它可用于声明函数。通常情况下，函数名字是全局可以访问的，对整个程序的
 // 各个部分而言都是可见。但是，如果把函数声明未static类型，则该函数名出了对函数声明所在的文件可见外，其它
 // 文件都无法访问。
@@ -179,16 +193,6 @@ void learn_goto() {
     printf("123");
     tag:
         printf("occur error");
-}
-
-// 内置stdlib.h#strtol()
-int atoi(const char s[]) {
-    int i, n;
-    n = 0;
-    for (i = 0; s[i] >= '0' && s[i] <= '9';i++){
-        n = n * 10 + (s[i] - '0');
-    }
-    return n;
 }
 
 void learn_file() {

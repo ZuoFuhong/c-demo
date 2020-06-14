@@ -5,6 +5,6 @@
 #include "syntax/basic.h"
 
 int main() {
-    learn_extern();
+    learn_typedef();
     return 0;
 }
