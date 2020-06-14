@@ -21,3 +21,13 @@ void learn_stream_input() {
         putchar(c);
     }
 }
+
+// 实现：内置stdlib.h#strtol()
+int atoi(const char s[]) {
+    int i, n;
+    n = 0;
+    for (i = 0; s[i] >= '0' && s[i] <= '9';i++){
+        n = n * 10 + (s[i] - '0');
+    }
+    return n;
+}
