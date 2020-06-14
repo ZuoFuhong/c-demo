@@ -8,5 +8,6 @@ add_executable(c_demo
     syntax/basic.h syntax/basic.c
     syntax/builtin.c
     syntax/pointer.c
+    syntax/struct.c
     example/calc/calc.h example/calc/calc.c example/calc/getop.c example/calc/stack.c
 )

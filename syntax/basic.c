@@ -191,21 +191,6 @@ int atoi(const char s[]) {
     return n;
 }
 
-void learn_struct() {
-    struct stru {
-        char *name;
-        int age;
-    } stru1;
-
-    stru1.name = "dazuo";
-    stru1.age = 30;
-
-    printf("name = %s , age = %d\n", stru1.name, stru1.age);
-
-    struct stru *pstru = &stru1;
-    printf("%s\n", pstru->name);
-}
-
 void learn_file() {
     char file_name[] = "demo.txt";
     FILE *fp = fopen(file_name, "r+");
