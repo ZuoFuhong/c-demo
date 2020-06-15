@@ -75,7 +75,6 @@ void learn_printf() {
     printf("%d\n", a);      // 按十进制整型数据的实际长度输出
     printf("%ld\n", l);     // 输出长整型数据
     printf("%5d\n", a);     // 指定的输出字段的宽度，左边补空格
-    printf("%u\n", a);      // 输出无符号整型
     printf("%c\n", b);      // 用来输出一个字符
     printf("%f\n", c);      // 用来输出实数，包括单精度和双精度
     printf("%.2f\n", d);    // 指定小数位，超出的进行四舍五入
@@ -85,6 +84,11 @@ void learn_printf() {
     printf("%g\n", g);      // 以最短的形式表示
     printf("%d\n", *p);
     printf("%p\n", p);      // 指针的地址
+
+    int h = 2147483647;
+    unsigned int uh = 2147483648;
+    printf("%d\n", h);      // 输出整型
+    printf("%u\n", uh);     // 输出无符号整型
 }
 
 void learn_data_type() {
@@ -140,18 +144,6 @@ void learn_char_array() {
     char s2[] = "hello";
     // sizeof 可以获得数据类型或变量在内存中所占的字节数
     printf("s2 = %s\t size = %ld\n", s2, sizeof(s2));  // size = 6
-}
-
-void learn_union() {
-    union data {
-        int age;
-        char *name;
-    } a;
-    a.name = "dazuo";
-    printf("name = %s\n", a.name);
-
-    a.age = 20;
-    printf("%d\n", a.age);
 }
 
 void learn_enum() {
