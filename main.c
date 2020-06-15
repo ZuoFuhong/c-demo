@@ -1,10 +1,9 @@
 //
 // Created by dazuo on 2020/6/11.
 //
-#include <stdio.h>
-extern void learn_stdlibh();
+#include "syntax/basic.h"
 
 int main() {
-    learn_stdlibh();
+    learn_unistd();
     return(0);
 }
