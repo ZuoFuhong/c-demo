@@ -51,12 +51,12 @@ static void learn_static() {
 }
 
 extern int FILE_FD;
-extern void learn_stdlib();
+extern void learn_stdlibh();
 // 在一个源程序的所有源文件中，一个外部变量只能在某个文件中定义一次，而其他文件可以通过extern声明来访问它。
 // 外部变量的定义中必须指定数组的长度，但extern声明则不一定要指定数组的长度。
 // 外部变量的初始化只能出现在其定义中。
 void learn_extern() {
-    learn_stdlib();
+    learn_stdlibh();
     printf("FILE_FD: %d", FILE_FD);
 }
 
@@ -119,14 +119,6 @@ void learn_data_type() {
 void learn_flow_statement() {
     for (int i = 0; i < 5; i++) {
         printf("i = %d\t", i);
-    }
-}
-
-void learn_array() {
-    int list[8];
-    // list[1] = 0; TODO: 第二个默认值不是0
-    for (int i = 0; i < 8; ++i) {
-        printf("%d", list[i]);
     }
 }
 
