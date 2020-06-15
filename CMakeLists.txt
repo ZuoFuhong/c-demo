@@ -11,5 +11,9 @@ add_executable(c_demo
     syntax/pointer.c
     syntax/struct.c
     syntax/union.c
-    example/calc/calc.h example/calc/calc.c example/calc/getop.c example/calc/stack.c
+    syntax/file.c
+#    example/calc/calc.h
+#    example/calc/calc.c
+#    example/calc/getop.c
+#    example/calc/stack.c
 )

@@ -4,9 +4,7 @@
 #include <stdio.h>
 #include "syntax/basic.h"
 
-extern void learn_union();
-
 int main() {
-    learn_union();
+    learn_file();
     return 0;
 }

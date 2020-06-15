@@ -4,7 +4,6 @@
 #include <stdio.h>      // 预处理器是编译过程中执行的第一个步骤。#include指令（用于在编译期间把指定文件的内容包含进当前文件中）
 #include <string.h>
 #include "basic.h"      // 文件名用引号引起来，则在源文件所在位置查找该文件；如果在该位置没有找到文件，则根据相应的规格查找该文件，这个规则同具体的实现有关。
-#include <ctype.h>
 
 #define CODE "10001"    // #define指令，宏替换，用任意字符序列替代一个标记
 #define STEP 30
@@ -185,16 +184,4 @@ void learn_goto() {
     printf("123");
     tag:
         printf("occur error");
-}
-
-void learn_file() {
-    char file_name[] = "demo.txt";
-    FILE *fp = fopen(file_name, "r+");
-    if (fp == NULL) {
-        fp = fopen(file_name, "w");
-    }
-
-    fputs("hello world", fp);
-
-    fclose(fp);
 }
