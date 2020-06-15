@@ -79,3 +79,15 @@ void learn_struct_array() {
     printf("2 = %s\n", (*arr).name);
     printf("3 = %s\n", (arr + 1)->name);
 }
+
+// 位字段，是"字"中相邻位的集合。"字"（word）是单个的存储单元，它同具体的实现有关。
+// 定义包含3个一位的字段。冒号后的数字表示字段的宽度（用二进制数表示）。
+struct flag {
+    unsigned int is_keyword : 1;
+    unsigned int is_extern  : 1;
+    unsigned int is_static  : 1;
+};
+void learn_bit_field() {
+    struct flag flag1 = {1, 1, 0};
+    printf("%ld\n", sizeof(flag1));
+}
