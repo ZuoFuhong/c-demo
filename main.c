@@ -4,7 +4,9 @@
 #include <stdio.h>
 #include "syntax/basic.h"
 
+extern void learn_stderr();
+
 int main() {
-    learn_file();
+    learn_stderr();
     return 0;
 }

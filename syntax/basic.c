@@ -4,6 +4,7 @@
 #include <stdio.h>      // 预处理器是编译过程中执行的第一个步骤。#include指令（用于在编译期间把指定文件的内容包含进当前文件中）
 #include <string.h>
 #include "basic.h"      // 文件名用引号引起来，则在源文件所在位置查找该文件；如果在该位置没有找到文件，则根据相应的规格查找该文件，这个规则同具体的实现有关。
+#include <stdlib.h>
 
 #define CODE "10001"    // #define指令，宏替换，用任意字符序列替代一个标记
 #define STEP 30
@@ -184,4 +185,17 @@ void learn_goto() {
     printf("123");
     tag:
         printf("occur error");
+}
+
+void learn_stderr() {
+    // 将fprintf函数产生的诊断信息输出到stderr（标准错误文件）
+    fprintf(stderr, "hello");
+
+    // 终止程序的执行，任何调用该程序的进程都可以获取exit的参数值，因此，可以通过另一个将该程序作为子进程的程序
+    // 来测试该程序的执行是否成功。按照惯例，返回值0表示一切正常，而非0返回值通常表示出现了异常情况。exit为每个
+    // 已打开的输出文件调用fclose函数，以将缓冲区中的所有输出写到对应的文件中。
+
+    // 在主程序main中，语句return expr 等价于exit(expr)。但是使用函数exit有一个优点，它可以从其他函数中调用。
+    exit(0);
+    printf("world");
 }
