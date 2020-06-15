@@ -5,14 +5,24 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <math.h>
+#include <time.h>
 
 int FILE_FD = 999;
+
+int getRandomNum(int seed) {
+    srand(seed);
+    int c = rand(); // NOLINT(cert-msc30-c, cert-msc50-cpp)
+    return c;
+}
 
 void learn_stdlibh() {
     double a = strtod("123", NULL);
     long b = strtol("123", NULL, 10);
     printf("%.2f\n", a);
     printf("%ld\n", b);
+
+    printf("%d\n", getRandomNum(2));
 }
 
 // 实现：内置stdlib.h#strtol()
@@ -88,4 +98,13 @@ void learn_alloc() {
     char *p;
     // 避免"野指针"出现，赋初值。
     char *p2 = NULL;
+}
+
+// 数学函数
+void learn_mathh() {
+    int a = -1;
+    printf("%d", abs(a));
+
+    double b = pow(2, 3);
+    printf("%g", b);
 }

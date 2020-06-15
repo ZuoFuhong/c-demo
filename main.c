@@ -2,9 +2,9 @@
 // Created by dazuo on 2020/6/11.
 //
 #include <stdio.h>
-extern void learn_alloc();
+extern void learn_stdlibh();
 
 int main() {
-    learn_alloc();
+    learn_stdlibh();
     return(0);
 }
