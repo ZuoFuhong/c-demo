@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 int FILE_FD = 999;
 
@@ -20,6 +21,11 @@ void learn_stream_input() {
         // output a character
         putchar(c);
     }
+}
+
+void learn_tolower() {
+    char letter = 'a';
+    printf("%c", (char)toupper(letter));
 }
 
 // 实现：内置stdlib.h#strtol()
