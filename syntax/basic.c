@@ -10,6 +10,9 @@
 #define STEP 30
 #define max(A, B)  ((A) > (B) ? (A) : (B))
 
+#define UNKNONW 0
+#undef  UNKNONW         // 取消标识符的预定义
+
 int key;
 #if STEP == 20
     int key = 20;
