@@ -13,6 +13,7 @@ add_executable(c_demo
     syntax/union.c
     syntax/file.c
     syntax/syscalls.c
+    syntax/bitwise.c
 #    example/calc/calc.h
 #    example/calc/calc.c
 #    example/calc/getop.c

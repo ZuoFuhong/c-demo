@@ -4,6 +4,6 @@
 #include "syntax/basic.h"
 
 int main() {
-    learn_unistd();
+    learn_bitwise();
     return(0);
 }
