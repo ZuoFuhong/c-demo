@@ -14,8 +14,4 @@ add_executable(c_demo
     syntax/file.c
     syntax/syscalls.c
     syntax/bitwise.c
-#    example/calc/calc.h
-#    example/calc/calc.c
-#    example/calc/getop.c
-#    example/calc/stack.c
 )
