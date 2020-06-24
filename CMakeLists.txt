@@ -15,4 +15,4 @@ add_executable(c_demo
     syntax/syscalls.c
     syntax/bitwise.c
     syntax/process.c
-)
+        syntax/error.c)
