@@ -7,6 +7,7 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
+#include <sys/time.h>
 
 int FILE_FD = 999;
 
@@ -107,4 +108,19 @@ void learn_mathh() {
 
     double b = pow(2, 3);
     printf("%g", b);
+}
+
+// 获取时间戳
+void learn_timestamp() {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    printf("second：%ld \n", tv.tv_sec);
+    printf("millisecond: %ld\n", tv.tv_sec * 1000 + tv.tv_usec / 1000);
+
+    // 时间戳格式化
+    struct tm *p;
+    p = localtime(&tv.tv_sec);
+    char now[100];
+    strftime(now, sizeof(now), "%Y-%m-%d %H:%M:%S", p);
+    printf("now = %s\n", now);
 }
