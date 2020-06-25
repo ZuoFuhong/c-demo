@@ -2,6 +2,7 @@
 // Created by dazuo on 2020/6/15.
 //
 #include <stdio.h>
+#include <sys/stat.h>
 
 void learn_file() {
     char file_name[] = "info.log";
@@ -19,4 +20,20 @@ void learn_file() {
     // 就应该释放。对输出文件执行fclose还有另外一个原因：它将缓冲区中由puts函数正在收集
     // 的输出写到文件中。当程序正常终止时，程序会自动为每个打开的文件调用fclose函数。
     fclose(fp);
+}
+
+// 文件属性
+void learn_stat() {
+    char *ptr = NULL;
+    struct stat buf;
+    lstat("/Users/dazuo/workplace/c-learning-notes", &buf);
+    if (S_ISDIR(buf.st_mode)) {
+        ptr = "directory";
+    }
+    printf("%s\n", ptr);
+    lstat("/Users/dazuo/workplace/c-learning-notes/README.md", &buf);
+    if (S_ISREG(buf.st_mode)) {
+        ptr = "regular";
+    }
+    printf("%s\n", ptr);
 }
