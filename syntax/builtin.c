@@ -19,11 +19,19 @@ int getRandomNum(int seed) {
 
 void learn_stdlibh() {
     double a = strtod("123", NULL);
-    long b = strtol("123", NULL, 10);
     printf("%.2f\n", a);
-    printf("%ld\n", b);
 
     printf("%d\n", getRandomNum(2));
+}
+
+void learn_strtol() {
+    // 当 base 的值为 0 时，默认采用 10 进制转换，但如果遇到 '0x' / '0X' 前置字符则会使用 16 进制转换，遇到 '0' 前置字符则会使用 8 进制转换。
+    long a = strtol("0x123", NULL, 0);
+    long b = strtol("01111011", NULL, 2);
+    long t = strtol("123", NULL, 10);
+    long e = strtol("0123", NULL, 8);
+    long h = strtol("0x123", NULL, 16);
+    printf("a = %ld, b = %ld, t = %ld, e = %ld, h = %ld", a, b, t, e, h);
 }
 
 // 实现：内置stdlib.h#strtol()
