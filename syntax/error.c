@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+#include <stdlib.h>
 
 // 出错处理
 // 当UNIX系统函数出错时，通常会返回一个负值，而且整型变量 errno 通常被设置为具体特定信息的值。
@@ -26,4 +27,16 @@ void learn_error() {
     // 它首先输出由 msg 指向的字符串，然后是一个冒号，一个空格，接着是对应于 errno 值的出错消息，最后是一个换行符。
     errno = ENOENT;
     perror("cause error");
+}
+
+// 捕获错误
+void learn_catch_error() {
+    errno = 0;
+    char *s = "A";
+    long val = strtol(s, NULL, 0);
+    if (errno == EINVAL) {
+        perror("cause error");
+        return;
+    }
+    printf("%ld", val);
 }
