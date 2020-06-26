@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-int main() {
-    printf("hello");
-    return(0);
+int main(int argc, char *argv[]) {
+    // Page 18
+    return 0;
 }
