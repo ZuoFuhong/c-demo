@@ -16,8 +16,7 @@
 #define PORT    9999
 
 void socket_client() {
-    // 1.socket函数创建一个网际（AF_INET）字节流（SOCK_STREAM）套接字。该函数返回一个小整数描述符，
-    // 以后的所有函数调用（如随后的connect和read）就用该描述符这个套接字。
+    // 1.调用socket函数，指定期望的通信协议类型（协议族和套接字类型）。在成功时返回一个小的非负整数值，它与文件描述符类似，我们把它称为套接字描述符（socket descriptor）
     // 其中：
     //  - af：为地址族，也就是 IP 地址类型，常用的有 AF_INET 和 AF_INET6。AF 是“Address Family”的简写，INET是“Inetnet”的简写。AF_INET 表示 IPv4 地址，例如 127.0.0.1；AF_INET6 表示 IPv6 地址，例如 1030::C9B4:FF12:48AA:1A2B。
     //  - type：表示数据传输方式，常用的有 SOCK_STREAM 和 SOCK_DGRAM。
@@ -27,20 +26,23 @@ void socket_client() {
         printf("socket error");
         return;
     }
-    // 2.转换为二进制端口号
+    // 转换为二进制端口号
     __uint16_t port = htons(PORT);
 
     struct sockaddr_in servaddr;
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = port;
-    // 3.把ip地址转化为用于网络传输的二进制数值
+    // 把IP地址转化为用于网络传输的二进制数值
     inet_pton(AF_INET, ADDR, &servaddr.sin_addr);
-    // 4.建立与服务器的连接
-    //   connect函数应用于一个TCP套接字时，将与由它的第二个参数指向的套接字地址结构指定的服务器建立一个TCP连接。
-    //   该套接字地址结构的长度也必须作为该函数的第三个参数指定。
+    // 2.用connect函数来建立与TCP服务器的连接
+    //   sockfd是由socket函数返回的套接字描述符，第二个、第三个参数分别是一个指向套接字地址结构的指针和该结构的大小。
+    //   客户端在调用函数connect前不必非得调用bind函数，因为如果需要的话，内核会确定源IP地址，并选择一个临时端口作为源端口。
+    //
+    //   从内核的角度看，使用指向通用套接字地址结构的指针另有原因：内核必须取调用者的指针，把它类型强制转换为
+    //   struct sockaddr * 类型，然后检查其中 sa_family 字段的值来确定这个结构的真实类型。
     connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 
-    // 5.读取服务器的应答
+    // 3.读取服务器的应答
     int n;
     char recvline[MAXLINE];
     while ((n = read(sockfd, recvline, MAXLINE)) > 0) {
@@ -62,9 +64,8 @@ void socket_server() {
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(PORT);
-    // 2.调用bind函数将套接字与特定的IP地址和端口绑定起来
-    //  从内核的角度看，使用指向通用套接字地址结构的指针另有原因：内核必须取调用者的指针，把它类型强制转换为
-    //  struct sockaddr * 类型，然后检查其中 sa_family 字段的值来确定这个结构的真实类型。
+    // 2.调用bind函数把一个本地协议地址赋于一个套接字。对于网际协议，协议地址是32位的IPv4地址或128位的
+    //   IPv6地址与16位的TCP或UDP端口号的组合。
     bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
     // 3.调用listen函数把该套接字转换成一个监听套接字。（常量 LISTENQ 指定系统内核允许在这个监听描述符上排队的最大客户连接数）
     listen(listenfd, LISTENQ);
