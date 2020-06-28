@@ -18,7 +18,7 @@ void learn_process() {
         printf("fork error\n");
         return;
     } else if (pid == 0) {
-        printf("subprocess pid = %d\n", getpid());
+        printf("ppid = %d, subprocess pid = %d\n", getppid(), getpid());
         sleep(2);
         return;
     }
