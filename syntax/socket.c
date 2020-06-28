@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define MAXLINE 100
 #define LISTENQ 10
@@ -57,7 +58,6 @@ void socket_server() {
     int     listenfd, connfd;
     struct  sockaddr_in servaddr;
     char    buff[MAXLINE];
-    time_t  ticks;
 
     // 1.创建一个套接字
     listenfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -74,11 +74,25 @@ void socket_server() {
         // 来建立连接。握手完毕时accept返回，其返回值是一个称为 已连接描述符（connected descriptor）的新描述符。
         // 该描述符用于与新近连接的那个客户通信。accept为每个连接到本服务器的客户返回一个新描述符。
         connfd = accept(listenfd, NULL, NULL);
-        ticks = time(NULL);
-        snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
-        write(connfd, buff, strlen(buff));
+        printf("connfd: %d\n", connfd);
+        // 并发服务器
+        if ((fork()) == 0) {
+            close(listenfd);
+
+            time_t ticks = time(NULL);
+            snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
+            write(connfd, buff, strlen(buff));
+
+            close(connfd);
+            exit(0);
+        }
 
         // 5.调用close关闭与客户端的连接。该调用引发正常的TCP连接终止序列：每个方向发送一个FIN，每个FIN又由各自的对端确认。
+        //
+        //   每个文件或套接字都有一个引用计数器。引用计数器在文件表项中维护，它是当前打开着的引用该文件或套接字的描述符的个数。
+        //   fork返回后，listenfd和connfd描述符在父进程和子进程间共享（也就是被复制），因此与这两个套接字相关联的文件表项
+        //   各自的访问计数均为2。这么一来，当父进程关闭connfd时，它只是把相应的引用计数值从2减为1。该套接字真正的清理和资源
+        //   释放要等到其引用数值到达0时才发生。这会在稍后子进程也关闭connfd时发生。
         close(connfd);
     }
 }
