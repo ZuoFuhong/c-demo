@@ -118,6 +118,7 @@ void learn_mathh() {
     printf("%g", b);
 }
 
+// 时间日期格式化
 void learn_time() {
     // 返回自纪元 Epoch（1970-01-01 00:00:00 UTC）起经过的时间，以秒为单位。如果 seconds 不为空，则返回值也存储在变量 seconds 中。
     time_t ticks = time(NULL);
