@@ -102,3 +102,25 @@ void host_byte_order() {
         printf("unknown\n");
     }
 }
+
+// 地址转换函数（下面两个函数对应IPv4和IPv6都适用）
+void learn_inet_pton() {
+    char *strptr = "127.0.0.1";
+    struct in_addr attrptr;
+
+    // 把IP地址转化为二进制数值
+    int res = inet_pton(AF_INET, strptr, &attrptr);
+    if (res == 0) {
+        printf("invalid addr");
+        return;
+    } else if (res == -1) {
+        perror(NULL);
+        return;
+    }
+    printf("%d\n", attrptr.s_addr);
+
+    // 反向转换（从数值格式转换到表达式格式）
+    char strptr2[20];
+    inet_ntop(AF_INET, (void *)&attrptr, strptr2, INET_ADDRSTRLEN);
+    printf("%s\n", strptr2);
+}
