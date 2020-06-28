@@ -63,6 +63,8 @@ void socket_server() {
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(PORT);
     // 2.调用bind函数将套接字与特定的IP地址和端口绑定起来
+    //  从内核的角度看，使用指向通用套接字地址结构的指针另有原因：内核必须取调用者的指针，把它类型强制转换为
+    //  struct sockaddr * 类型，然后检查其中 sa_family 字段的值来确定这个结构的真实类型。
     bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
     // 3.调用listen函数把该套接字转换成一个监听套接字。（常量 LISTENQ 指定系统内核允许在这个监听描述符上排队的最大客户连接数）
     listen(listenfd, LISTENQ);
@@ -77,5 +79,26 @@ void socket_server() {
 
         // 5.调用close关闭与客户端的连接。该调用引发正常的TCP连接终止序列：每个方向发送一个FIN，每个FIN又由各自的对端确认。
         close(connfd);
+    }
+}
+
+// 1.为什么会有小端字节序？
+//   答案是，计算机电路先处理低位字节，效率比较高，因为计算都是从低位开始的。所以，计算机的内部处理都是小端字节序。
+//   但是，人类还是习惯读写大端字节序。所以，除了计算机的内部处理，其他的场合几乎都是大端字节序，比如网络传输和文件存储。
+// 2.小端字节序：将低序字节存储在起始地址；大端字节序：将高序字节存储在起始地址。
+// 3.主机字节序：系统所用的字节序称为主机字节序（host byte order）
+void host_byte_order() {
+    union {
+        short s;
+        char  c[sizeof(short)];
+    } un;
+    un.s = 0x0102;
+
+    if (un.c[0] == 1 && un.c[1] == 2) {
+        printf("big-endian\n");
+    } else if (un.c[0] == 2 && un.c[1] == 1) {
+        printf("little-endian\n");
+    } else {
+        printf("unknown\n");
     }
 }
