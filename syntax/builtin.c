@@ -118,19 +118,25 @@ void learn_mathh() {
     printf("%g", b);
 }
 
-// 获取时间戳
-void learn_timestamp() {
+void learn_time() {
+    // 返回自纪元 Epoch（1970-01-01 00:00:00 UTC）起经过的时间，以秒为单位。如果 seconds 不为空，则返回值也存储在变量 seconds 中。
+    time_t ticks = time(NULL);
+    printf("%ld\n", ticks);
+
+    // 把日期和时间转换为字符串
+    printf("%s", ctime(&ticks));
+
+    // 时间格式化
+    struct tm *p = localtime(&ticks);
+    char now[100];
+    strftime(now, sizeof(now), "%Y-%m-%d %H:%M:%S", p);
+    printf("now = %s\n", now);
+
+    // 使用 gettimeofday 获取更精准的时间
     struct timeval tv;
     gettimeofday(&tv, NULL);
     printf("second：%ld \n", tv.tv_sec);
     printf("millisecond: %ld\n", tv.tv_sec * 1000 + tv.tv_usec / 1000);
-
-    // 时间戳格式化
-    struct tm *p;
-    p = localtime(&tv.tv_sec);
-    char now[100];
-    strftime(now, sizeof(now), "%Y-%m-%d %H:%M:%S", p);
-    printf("now = %s\n", now);
 }
 
 // bzero 会将参数s 所指的内存区域前n个字节，全部设为零值。
