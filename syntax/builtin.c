@@ -132,3 +132,19 @@ void learn_timestamp() {
     strftime(now, sizeof(now), "%Y-%m-%d %H:%M:%S", p);
     printf("now = %s\n", now);
 }
+
+// bzero 会将参数s 所指的内存区域前n个字节，全部设为零值。
+void learn_bzero() {
+    char s[] = "hello";
+    // 将一个数组清零
+    bzero(s, sizeof(s));
+    printf("%s, %ld\n", s, sizeof(s));
+
+    struct user {
+        char *name;
+        int  age;
+    } admin;
+    // 将一个结构体清零
+    bzero(&admin, sizeof(admin));
+    printf("%s, %d, %ld\n", admin.name, admin.age, sizeof(admin));
+}
