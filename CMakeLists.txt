@@ -17,4 +17,5 @@ add_executable(capp
     syntax/process.c
     syntax/error.c
     syntax/signal.c
+    syntax/socket.c
 )
