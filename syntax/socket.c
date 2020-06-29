@@ -27,12 +27,10 @@ void socket_client() {
         printf("socket error");
         return;
     }
-    // 转换为二进制端口号
-    __uint16_t port = htons(PORT);
 
     struct sockaddr_in servaddr;
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port = port;
+    servaddr.sin_port = htons(PORT);
     // 把IP地址转化为用于网络传输的二进制数值
     inet_pton(AF_INET, ADDR, &servaddr.sin_addr);
     // 2.用connect函数来建立与TCP服务器的连接
@@ -144,4 +142,18 @@ void learn_inet_pton() {
     char strptr2[20];
     inet_ntop(AF_INET, (void *)&attrptr, strptr2, INET_ADDRSTRLEN);
     printf("%s\n", strptr2);
+}
+
+// 网络字节顺序与本地字节顺序之间的转换函数
+void learn_htons() {
+    // 将主机的无符号短整形数转换成网络字节顺序（就是将一个数的高低位互换）
+    __uint16_t b = htons(256);
+    // 将一个16位数由网络字节顺序转换为主机字节顺序
+    __uint16_t p = ntohs(b);
+    printf("b = %d, p = %d\n", b, p);
+
+    // 针对32位的字节序
+    __uint32_t b2 = htonl(1);
+    __uint32_t p2 = ntohl(b2);
+    printf("b2 = %d, p2 = %d\n", b2, p2);
 }
