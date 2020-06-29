@@ -79,6 +79,12 @@ void socket_server() {
         if ((fork()) == 0) {
             close(listenfd);
 
+            // 获取客户端信息
+            struct sockaddr_in remoteAddr;
+            socklen_t len = sizeof(remoteAddr);
+            getpeername(connfd, (struct sockaddr *) &remoteAddr, &len);
+            printf("remote port = %d\n", ntohs(remoteAddr.sin_port));
+
             time_t ticks = time(NULL);
             snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
             write(connfd, buff, strlen(buff));
