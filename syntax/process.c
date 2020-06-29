@@ -46,7 +46,6 @@ void learn_process() {
     //  2）当由于捕捉到某个信号sleep提前返回时，返回值是未睡够的时间（所要求的时间减去实际休眠时间）。
     sleep(5);
     printf("father process is exiting.\n");
-    return;
 }
 
 // 函数wait和waitpid 均返回：若成功则为进程ID，若出错则为0或-1
@@ -94,7 +93,6 @@ static void sig_child(int signo) {
     while ((pid = waitpid(-1, &stat, WNOHANG)) > 0) {
         printf("child %d terminated.\n", pid);
     }
-    return;
 }
 
 // 用exec函数可以把当前进程替换为一个新进程，且新进程与原进程有相同的PID。
