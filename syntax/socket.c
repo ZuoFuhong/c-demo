@@ -10,6 +10,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #define MAXLINE 100
 #define LISTENQ 10
@@ -52,10 +53,15 @@ void socket_client() {
     }
 }
 
+static void sig_child(int signo);
+
 void socket_server() {
     int     listenfd, connfd;
     struct  sockaddr_in servaddr;
     char    buff[MAXLINE];
+
+    // 处理僵尸进程
+    signal(SIGCHLD, sig_child);
 
     // 1.创建一个套接字
     listenfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -81,7 +87,7 @@ void socket_server() {
             struct sockaddr_in remoteAddr;
             socklen_t len = sizeof(remoteAddr);
             getpeername(connfd, (struct sockaddr *) &remoteAddr, &len);
-            printf("remote port = %d\n", ntohs(remoteAddr.sin_port));
+            printf("ppid = %d, pid = %d, remote port = %d\n", getppid(), getpid(), ntohs(remoteAddr.sin_port));
 
             time_t ticks = time(NULL);
             snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
@@ -98,6 +104,25 @@ void socket_server() {
         //   各自的访问计数均为2。这么一来，当父进程关闭connfd时，它只是把相应的引用计数值从2减为1。该套接字真正的清理和资源
         //   释放要等到其引用数值到达0时才发生。这会在稍后子进程也关闭connfd时发生。
         close(connfd);
+    }
+}
+
+// 处理被中断的系统调用
+//
+// 慢系统调用（Slow system call）
+// 该术语适用于那些可能永远阻塞的系统调用。永远阻塞的系统调用是指调用永远无法返回，多数网络支持函数都属于这一类。如：若没有客户
+// 连接到服务器上，那么服务器的accept调用就会一直阻塞。
+//
+// 适用于慢系统调用的基本规则是：当阻塞于某个慢系统调用的一个进程捕获某个信号且相应信号处理函数返回时，该系统调用可能返回一个
+// EINTR错误。有些内核自动重启某些被中断的系统调用。
+//
+// 参考：https://blog.csdn.net/benkaoya/article/details/17262053
+
+static void sig_child(int signo) {
+    pid_t pid;
+    int stat;
+    while ((pid = waitpid(-1, &stat, WNOHANG)) > 0) {
+        printf("child %d terminated.\n", pid);
     }
 }
 
@@ -157,3 +182,5 @@ void learn_htons() {
     __uint32_t p2 = ntohl(b2);
     printf("b2 = %d, p2 = %d\n", b2, p2);
 }
+
+#pragma clang diagnostic pop
