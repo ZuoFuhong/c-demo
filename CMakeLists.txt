@@ -20,4 +20,5 @@ add_executable(capp
     syntax/lib_io.c
     syntax/file.c
     syntax/memory.c
+    syntax/kqueue.c
 )
