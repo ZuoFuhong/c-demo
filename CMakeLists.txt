@@ -19,4 +19,5 @@ add_executable(capp
     syntax/syscall_io.c
     syntax/lib_io.c
     syntax/file.c
+    syntax/memory.c
 )
