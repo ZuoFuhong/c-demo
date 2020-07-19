@@ -18,4 +18,5 @@ add_executable(capp
     syntax/socket.c
     syntax/syscall_io.c
     syntax/lib_io.c
+    syntax/file.c
 )
