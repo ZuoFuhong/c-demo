@@ -8,6 +8,7 @@
 #include <math.h>
 #include <time.h>
 #include <sys/time.h>
+#include <unistd.h>
 
 int FILE_FD = 999;
 
@@ -74,41 +75,6 @@ void learn_stringh() {
     printf("%d\n", s[10] == '\0');
 }
 
-// 命令执行函数
-void learn_command_execute() {
-    system("date");
-    system("echo 123");
-}
-
-// 存储管理函数
-// 函数malloc和calloc用于动态地分配存储块。
-// 1.函数malloc分配成功时，它返回一个指针，该指针指向n个字节长度的未初始化的存储空间，否则返回NULL。
-// 2.函数calloc分配成功时，它返回一个指针，该指针指向的空闲空间足以容纳由n个指定长度的对象组成的数组，
-//   否则返回NULL。该存储空间被初始化为0。
-//
-// free(p)函数释放p指向的存储空间，其中，p是此前通过调用malloc或calloc函数得到的指针。存储空间的
-// 释放顺序没有什么限制。但是，如果释放一个不是通过调用malloc或calloc函数得到的指针所指向的存储空间，
-// 将是一个很严重的错误。使用已经释放的存储空间同样是错误的。
-void learn_alloc() {
-    // 根据请求的对象类型，malloc或calloc函数返回的指针满足正确的对齐要求。
-    int *ip = (int *)calloc(4, sizeof(int));
-
-    *ip = 20;
-    printf("%p\t%d\n", ip, *ip);
-
-    free(ip);
-
-    // 空悬指针（dangling pointer）：指向已经销毁的对象或已经回收的地址。当free调用时，除了释放
-    // 动态申请的内存，还要将相关的指针指向NULL，避免出现空悬指针。
-    ip = NULL;
-
-    // 野指针：没有初始化的指针就是野指针。
-    // “野指针”可能指向任意内存段，因此它可能会损坏正常的数据，也有可能引发其他未知错误。
-    char *p;
-    // 避免"野指针"出现，赋初值。
-    char *p2 = NULL;
-}
-
 // 数学函数
 void learn_mathh() {
     int a = -1;
@@ -140,18 +106,47 @@ void learn_time() {
     printf("millisecond: %ld\n", tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-// bzero 会将参数s 所指的内存区域前n个字节，全部设为零值。
-void learn_bzero() {
-    char s[] = "hello";
-    // 将一个数组清零
-    bzero(s, sizeof(s));
-    printf("%s, %ld\n", s, sizeof(s));
+void alarm_handler(int signo) {
+    printf("alarm clock: %d\n", signo);
+}
 
-    struct user {
-        char *name;
-        int  age;
-    } admin;
-    // 将一个结构体清零
-    bzero(&admin, sizeof(admin));
-    printf("%s, %d, %ld\n", admin.name, admin.age, sizeof(admin));
+// 调用这个函数在 seconds 秒实时时间过去后，向调用进程发送 SIGALRM 信号。如果之前预定的信号未决，
+// 调用取消 alarm，并用新请求的 alarm 替换它，然后返回前一个 alarm 剩余的秒数。如果seconds为0，
+// 之前的 alarm(如果有)被取消，并且不会有新的 alarm 预定。
+void learn_alarm() {
+    signal(SIGALRM, alarm_handler);
+    alarm(2);
+
+    // 让进程暂停直到信号出现
+    pause();
+}
+
+// int setitimer (int which, const struct itimerval *value, struct itimerval *ovalue);
+// 其中：
+//   which：定时器的类型
+//   it_value：指定期满时间。一旦it_value指定的时间过去，内核将以it_interval提供的时间重新装备定时器。
+//   it_value：到达0，它将被设置为it_interval。如果定时器到期并且 it_interval 为 0，定时器不会重装。
+//             类似的，如果定时器的 it_value 设置为 0，定时器将停止而不重装。
+// 函数在成功时都返回 0;出错返回-1，并设置 errno。
+//
+// 如下设置一个SIGALRM 信号处理器，然后以 5 秒初始过期时间，以及 1 秒的后继间隔装备定时器。
+void learn_timer() {
+    signal(SIGALRM, alarm_handler);
+
+    struct itimerval delay;
+    delay.it_value.tv_sec = 5;
+    delay.it_value.tv_usec = 0;
+    delay.it_interval.tv_sec = 1;
+    delay.it_interval.tv_usec = 0;
+
+    int ret = setitimer(ITIMER_REAL, &delay, NULL);
+    if (ret) {
+        perror("setitimer");
+        exit(EXIT_FAILURE);
+    }
+
+    unsigned int v = 10;
+    while (v > 0) {
+        v = sleep(v);
+    }
 }

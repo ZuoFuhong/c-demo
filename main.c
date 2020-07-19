@@ -5,6 +5,5 @@
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
-    // Page 18
     return 0;
 }
