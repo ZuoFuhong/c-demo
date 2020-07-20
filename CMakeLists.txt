@@ -21,4 +21,5 @@ add_executable(capp
     syntax/file.c
     syntax/memory.c
     syntax/kqueue.c
+    syntax/thread.c
 )
