@@ -10,7 +10,6 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
-#include <errno.h>
 
 #define MAXLINE 100
 #define LISTENQ 10
@@ -182,5 +181,3 @@ void learn_htons() {
     __uint32_t p2 = ntohl(b2);
     printf("b2 = %d, p2 = %d\n", b2, p2);
 }
-
-#pragma clang diagnostic pop
