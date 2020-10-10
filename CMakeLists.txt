@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(capp C)
+project(c_learning_notes C)
 
 # 定义变量
 set(CMAKE_C_STANDARD 99)
@@ -12,8 +12,10 @@ link_directories(${LINK_DIR})
 link_libraries(zmq hiredis)
 
 # 指定目标文件
-add_executable(capp main.c
-        third-lib/zeromq/zmq_req_client.c third-lib/zeromq/zmq_rep_server.c)
+add_executable(c_learning_notes main.c
+        third-lib/zeromq/zmq_req_client.c
+        third-lib/zeromq/zmq_rep_server.c
+)
 
 # 引用第三方库（工程名称 + 库的名称）
-target_link_libraries(capp zmq hiredis)
+target_link_libraries(c_learning_notes zmq hiredis)

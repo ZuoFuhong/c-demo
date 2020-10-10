@@ -15,5 +15,5 @@ static char *s_recv (void *socket) {
         return NULL;
     }
     buffer[size < cap ? size : cap - 1] = '\0';
-    return strndup(buffer, sizeof(buffer) - 1);
+    return strdup(buffer);
 }
