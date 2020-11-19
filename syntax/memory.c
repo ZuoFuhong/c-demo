@@ -6,6 +6,7 @@
 #include <alloca.h>
 #include <strings.h>
 #include <string.h>
+#include <time.h>
 
 // 内存管理（分配、操作、释放）
 //
@@ -123,4 +124,26 @@ void learn_bzero() {
 
 void learn_memory() {
     learn_memset();
+}
+
+char * getRandStr(int length) {
+    srand((unsigned)time(NULL)); // NOLINT(cert-msc51-cpp)
+    char str[7] = {'A', 'B', 'C', 'D', 'E', 'F'};
+    char *strTemp = malloc(length + 1);
+    for (int i = 0; i < length; i++) {
+        int index = rand() % 6; // NOLINT(cert-msc50-cpp)
+        strTemp[i] = str[index];
+    }
+    return strTemp;
+}
+
+// 获取随机数
+// 1.堆上分配内存，赋值数组。
+// 2.返回数组指针地址
+// 3.然后释放内存，置空指针
+void learn_malloc() {
+    char *str = getRandStr(4);
+    printf("learn_malloc str = %s", str);
+    free(str);
+    str = NULL;
 }
